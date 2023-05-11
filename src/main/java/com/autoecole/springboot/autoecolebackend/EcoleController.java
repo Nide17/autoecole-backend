@@ -15,7 +15,7 @@ public class EcoleController {
     public List<Ecole> getAllEcoles() {
         return Arrays.asList(
             new Ecole(1, "Sinai", "0785157542", "sinairwanda@gmail.com", "Kigali", "P, A, B, C, D, E"),
-            new Ecole(2, "New Vision", "0788552244", "newvision@gmail.com", "Musanze", "P, A, B, D, F")
+            new Ecole(2, "New Vision School", "0788552244", "newvision@gmail.com", "Musanze", "P, A, B, D, F")
         );
     }
     
