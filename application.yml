@@ -1,0 +1,24 @@
+# THIS IS USED TO CONFIGURE THE APPLICATION PROPERTIES
+server:
+  port: 5000
+
+spring:
+  # THESE ARE THE SPRING CONFIGURATIONS RELATED TO THE DATABASE
+  datasource:
+    url: jdbc:postgresql://localhost:5332/ecoles
+    username: nide
+    password: jesus123
+
+  jpa:
+    # THESE ARE THE JPA CONFIGURATIONS RELATED TO THE DATABASE 
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show_sql: true
+
+main:
+  # THIS IS THE MAIN CLASS OF THE APPLICATION THAT WILL BE RUN WHEN THE APPLICATION STARTS
+  web-application-type: servlet

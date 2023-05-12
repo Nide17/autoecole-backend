@@ -1,8 +1,22 @@
 package com.autoecole.springboot.autoecolebackend;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
+
+@Entity // THIS TELLS COMPILER THAT THIS IS AN ENTITY CLASS TO BE MAPPED TO A TABLE IN DATABASE
 public class Ecole {
 
     // PRIVATE INSTANCE VARIABLES
+    @Id // THIS TELLS COMPILER THAT THIS IS THE PRIMARY KEY
+    @SequenceGenerator(
+            // SEQUENCE IS A WAY TO GENERATE UNIQUE VALUES FOR A PRIMARY KEY
+            name = "ecole_sequence", sequenceName = "ecole_sequence", allocationSize = 1)
+
+    // GENERATION TYPE IS SEQUENCE, IT IS A WAY TO GENERATE UNIQUE VALUES FOR A PRIMARY KEY
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ecole_sequence")
     private long id;
     private String name;
     private String phone;
@@ -85,5 +99,4 @@ public class Ecole {
                 ", categories='" + getCategories() + "'" +
                 "}";
     }
-
 }
