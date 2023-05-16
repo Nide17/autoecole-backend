@@ -1,7 +1,9 @@
-package com.autoecole.springboot.autoecolebackend;
+package com.autoecole.springboot.autoecolebackend.ecoles;
 
 import java.io.IOException;
 import java.util.List;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,27 +15,43 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController // THIS TELLS COMPILER THAT THIS IS A REST CONTROLLER THAT PERFORMS CRUD
                 // OPERATIONS
-@RequestMapping("api/v1/ecoles") // THIS IS THE ROOT URL
+@RequestMapping("/api/v1") // THIS IS THE ROOT URL
+@CrossOrigin(origins = "*") // THIS IS TO ALLOW CROSS ORIGIN REQUESTS
 public class EcoleController {
 
-    // INJECT EcoleRepository
+    // INJECT EcoleRepository WHICH GIVES US ACCESS TO CRUD OPERATIONS
     private final EcoleRepository ecoleRepository;
 
     // CONSTRUCTOR INJECTION - INJECT EcoleRepository
     public EcoleController(EcoleRepository ecoleRepository) {
         this.ecoleRepository = ecoleRepository;
     }
-
+    
     // MAPPING THE URL TO THE METHOD - GET ALL ECOLES
-    @GetMapping // CHILD URL
+    @GetMapping
     public List<Ecole> getAllEcoles() {
 
         // GET ALL ECOLES FROM DATABASE
         return ecoleRepository.findAll();
     }
 
+    // MAPPING THE URL TO THE METHOD - GET AN ECOLE BY ID
+    @GetMapping(path = "/{ecoleId}") // CHILD URL
+    public Ecole getEcoleById(@PathVariable("ecoleId") Long id) {
+
+        // CHECK IF THE ECOLE EXISTS
+        if (!ecoleRepository.existsById(id)) {
+            // PRINT ERROR MESSAGE AND RETURN NULL
+            System.out.println("That ecole not found!");
+            return null;
+        }
+
+        // ELSE RETURN THE ECOLE
+        return ecoleRepository.findById(id).get();
+    }
+
     // POST - CREATE A NEW ECOLE
-    @PostMapping("/create")
+    @PostMapping("")
     public void createEcole(@RequestBody NewEcoleRequest request) throws IOException {
         // CREATE A NEW ECOLE
         Ecole ecole = new Ecole();
@@ -52,13 +70,13 @@ public class EcoleController {
     }
 
     // DELETE - DELETE AN ECOLE
-    @DeleteMapping("/delete/{ecoleId}")
+    @DeleteMapping("/{ecoleId}")
     public void deleteEcole(@PathVariable("ecoleId") Long id) {
         ecoleRepository.deleteById(id);
     }
 
     // PUT - UPDATE AN ECOLE
-    @PutMapping("/update/{ecoleId}")
+    @PutMapping("/{ecoleId}")
     public void updateEcole(
             @PathVariable("ecoleId") Long id,
             @RequestBody NewEcoleRequest request) {

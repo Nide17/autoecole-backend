@@ -1,4 +1,4 @@
-package com.autoecole.springboot.autoecolebackend;
+package com.autoecole.springboot.autoecolebackend.ecoles;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
