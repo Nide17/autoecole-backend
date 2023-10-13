@@ -52,7 +52,7 @@ public class EcoleController {
 
     // POST - CREATE A NEW ECOLE
     @PostMapping("")
-    public void createEcole(@RequestBody NewEcoleRequest request) throws IOException {
+    public Ecole createEcole(@RequestBody NewEcoleRequest request) throws IOException {
         // CREATE A NEW ECOLE
         Ecole ecole = new Ecole();
         ecole.setName(request.name);
@@ -63,6 +63,9 @@ public class EcoleController {
 
         // SAVE THE NEW ECOLE TO DATABASE
         ecoleRepository.save(ecole);
+
+        // RETURN THE NEW ECOLE
+        return ecole;
     }
 
     // CREATE A NEW ECOLE REQUEST CLASS TO HOLD THE REQUEST DATA
@@ -71,13 +74,16 @@ public class EcoleController {
 
     // DELETE - DELETE AN ECOLE
     @DeleteMapping("/{ecoleId}")
-    public void deleteEcole(@PathVariable("ecoleId") Long id) {
+    public Ecole deleteEcole(@PathVariable("ecoleId") Long id) {
         ecoleRepository.deleteById(id);
+
+        // RETURN THE DELETED ECOLE
+        return ecoleRepository.findById(id).get();
     }
 
     // PUT - UPDATE AN ECOLE
     @PutMapping("/{ecoleId}")
-    public void updateEcole(
+    public Ecole updateEcole(
             @PathVariable("ecoleId") Long id,
             @RequestBody NewEcoleRequest request) {
         // GET THE ECOLE FROM DATABASE
@@ -92,5 +98,8 @@ public class EcoleController {
 
         // SAVE THE UPDATED ECOLE TO DATABASE
         ecoleRepository.save(ecole);
+
+        // RETURN THE UPDATED ECOLE
+        return ecole;
     }
 }

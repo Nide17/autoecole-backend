@@ -3,11 +3,19 @@ server:
   port: 5000
 
 spring:
+  # autoconfigure:
+  #   exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
   # THESE ARE THE SPRING CONFIGURATIONS RELATED TO THE DATABASE
   datasource:
-    url: jdbc:postgresql://localhost:5332/ecoles
+    # THESE ARE THE DATABASE CONFIGURATIONS
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://dpg-ckkqkbma18fc73cutnb0-a.oregon-postgres.render.com/ecoles
     username: nide
-    password: jesus123
+    password: fJGETKCiIC1cPzxRXBMFmnUM08neFWvu
+
+    # url: jdbc:postgresql://localhost:5332/ecoles
+    # username: nide
+    # password: jesus123
 
   jpa:
     # THESE ARE THE JPA CONFIGURATIONS RELATED TO THE DATABASE 
